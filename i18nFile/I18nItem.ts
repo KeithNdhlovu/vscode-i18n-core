@@ -299,7 +299,7 @@ export class I18nItem {
             return reject(err)
           }
 
-          resolve()
+          resolve("")
         })
       })
     })
