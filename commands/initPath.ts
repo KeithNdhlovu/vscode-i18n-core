@@ -19,7 +19,7 @@ class InitPath {
 
     Config.updateI18nPaths(result)
 
-    const info = `${Config.extensionName}:🌟已帮你配置以下目录\n ${result.join(
+    const info = `${Config.extensionName}:🌟The following directories have been configured for you\n ${result.join(
       '\n'
     )}`
 
@@ -28,9 +28,9 @@ class InitPath {
   }
 
   async manualInit() {
-    const okText = '立即配置'
+    const okText = 'Configure now'
     const result = await vscode.window.showInformationMessage(
-      `${Config.extensionName}: 项目里的locales文件夹在哪？`,
+      `${Config.extensionName}: Where is the locales folder in the project?`,
       okText
     )
 
@@ -54,11 +54,11 @@ class InitPath {
   }
 
   async success() {
-    const okText = '继续配置'
+    const okText = 'Continue configuration'
     const result = await vscode.window.showInformationMessage(
-      `${Config.extensionName}: 配置好了，还有其他目录吗？`,
+      `${Config.extensionName}: Once configured, are there any other directories?`,
       okText,
-      '没有了'
+      'No more'
     )
 
     if (result !== okText) {

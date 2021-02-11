@@ -52,7 +52,7 @@ export abstract class TransView {
 
     this.panel = vscode.window.createWebviewPanel(
       'transView',
-      '翻译中心',
+      'Translation Center',
       vscode.ViewColumn.Beside,
       { enableScripts: true }
     )
@@ -65,14 +65,14 @@ export abstract class TransView {
 
     webview.onDidReceiveMessage(this.onMessage.bind(this))
 
-    // 切换回 webview
+    // Switch back to webview
     const viewChangeWatcher = this.panel.onDidChangeViewState(webview => {
       if (webview.webviewPanel.active) {
         this.postAllTrans()
       }
     })
 
-    // 更换文件
+    // Change file
     const fileWatcher = vscode.window.onDidChangeActiveTextEditor(() => {
       const activeDocument = vscode.window.activeTextEditor.document
       const isSameOrNotFile =

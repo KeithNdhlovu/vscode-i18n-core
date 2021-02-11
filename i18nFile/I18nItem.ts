@@ -24,8 +24,8 @@ export interface ITransData extends ILng {
 }
 
 export enum StructureType {
-  DIR, // 结构是文件夹的模式
-  FILE // 结构是语言文件的模式
+  DIR, // Structure is the pattern of folders
+  FILE // The structure is the mode of the language file
 }
 
 const FILE_EXT = {
@@ -122,7 +122,7 @@ export class I18nItem {
       })
 
     if (!files.length) {
-      Log.error(`未能识别locale目录:${localepath}`)
+      Log.error(`Failed to recognize the locale directory :${localepath}`)
     }
 
     return files
@@ -141,7 +141,7 @@ export class I18nItem {
   }
 
   readFile(filepath: string, useCache: boolean = false): any {
-    // TODO: LRU缓存优化
+    // TODO: LRU cache optimization
     if (useCache) {
       return fileCache[filepath] || this.readFile(filepath)
     }
@@ -186,13 +186,13 @@ export class I18nItem {
 
   async overrideCheck(keypath): Promise<boolean> {
     let [{ text }] = this.getI18n(keypath)
-    // 检测尾 key
+    // Detect tail key
     let overrideKey = text ? keypath : undefined
 
     if (!overrideKey) {
       let tempKeypath = keypath.split('.')
 
-      // 向前检测 key
+      // Detect key forward
       while (tempKeypath.length) {
         tempKeypath.pop()
 
@@ -217,9 +217,9 @@ export class I18nItem {
       return true
     }
 
-    const overrideText = '覆盖'
+    const overrideText = 'cover'
     const isOverride = await vscode.window.showInformationMessage(
-      `已有 ${overrideKey} 👉 ${text}, 覆盖吗？`,
+      `Already ${overrideKey} 👉 ${text}, overwrite it?`,
       { modal: true },
       overrideText
     )
@@ -272,7 +272,7 @@ export class I18nItem {
         keypath = realpath.join('.')
       }
 
-      // 读取文件
+      // Read file
       const file = this.readFile(i18nFilepath, true)
 
       return {

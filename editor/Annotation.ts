@@ -52,8 +52,8 @@ export abstract class Annotation {
       activeTextEditor.setDecorations(textEditorDecorationType, [])
     }
 
-    // 从文本里遍历生成中文注释
-    // TODO: 这里的实现职责耦合了
+    // Traverse to generate Chinese comments from the text
+    // TODO: The implementation responsibilities here are coupled
     let match = null
     while ((match = this.KEY_REG.exec(text))) {
       const index = match.index
@@ -83,7 +83,7 @@ export abstract class Annotation {
         }
       }
 
-      // 没有翻译的文案透明化处理
+      // Transparent processing of untranslated copy
       if (!mainText) {
         unuseDecorations.push({ range })
       }

@@ -50,7 +50,7 @@ export abstract class Hover implements vscode.HoverProvider {
       .join('\n')
 
     const transCommand = this.createCommandUrl({
-      name: '译',
+      name: 'Translate',
       command: meta.COMMANDS.transView,
       params: {
         key,
@@ -59,7 +59,7 @@ export abstract class Hover implements vscode.HoverProvider {
     })
 
     const delCommand = this.createCommandUrl({
-      name: '删',
+      name: 'Delete',
       command: meta.COMMANDS.removeI18n,
       params: {
         key,

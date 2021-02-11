@@ -16,7 +16,7 @@ const onExtract = async ({
   filepath,
   text,
   keyReplace,
-  promptText = `请输入要保存的路径，例如:home.document.title`,
+  promptText = `Please enter the path to save, for example: home.document.title`,
   keyTransform = key => key,
   defaultKeyTransform = key => key
 }: {
@@ -27,7 +27,7 @@ const onExtract = async ({
   keyTransform?: (key) => string
   defaultKeyTransform?: (key) => string
 }) => {
-  // 生成参考key
+  // Generate reference key
   let relativeName: any = path.relative(vscode.workspace.rootPath, filepath)
   relativeName = path.parse(relativeName)
 
@@ -64,27 +64,27 @@ const onExtract = async ({
     key = `common.${key}`
   }
 
-  // 重复检测
+  // Repeat detection
   const isOverride = await i18n.overrideCheck(key)
   if (!isOverride) {
     return
   }
 
-  // 替换内容
+  // Replace content
   vscode.window.activeTextEditor.edit(editBuilder => {
     const { start, end } = vscode.window.activeTextEditor.selection
 
     editBuilder.replace(new vscode.Range(start, end), keyReplace(key))
   })
 
-  // 翻译内容
+  // Translate content
   let transData = i18n.getI18n(key)
   const mainTrans = transData.find(item => item.lng === Config.sourceLocale)
 
   mainTrans.text = text
   transData = await i18n.transI18n(transData)
 
-  // 写入翻译
+  // write translation
   i18n.writeI18n(transData)
 }
 

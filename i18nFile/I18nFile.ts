@@ -25,7 +25,7 @@ class I18nFile {
     const i18nRootPath = i18nPaths
       .map((pathItem: string) => path.resolve(rootPath, pathItem))
       .sort((a: string, b: string) =>
-        //通过对比哪个更接近来确定符合要求的目录
+        // Determine which directory meets the requirements by comparing which is closer
         path.relative(filepath, a).length > path.relative(filepath, b).length
           ? 1
           : -1
