@@ -1,7 +1,7 @@
 import * as vscode from 'vscode'
 import * as path from 'path'
 import { google, baidu, youdao } from 'translation.js'
-import { get, set, omit } from 'lodash'
+import { get, set, omit, merge, map } from 'lodash'
 import * as YAML from 'yaml'
 import * as fs from 'fs'
 import Utils from '../utils'
@@ -293,7 +293,13 @@ export class I18nItem {
       return new Promise((resolve, reject) => {
         const file = this.readFile(filepath, true)
 
-        set(file, keypath, text)
+        //TODO: Remove the functionality of using `set` as it creates nested objects, 
+        // which is cool, but not what we are looking for at the moment
+        //set(file, keypath, text) 
+
+        // We instead use `merge` because it create a new key without nesting the objects
+        merge(file, {[keypath]: text})
+
         fs.writeFile(filepath, this.dataStringify(filepath, file), err => {
           if (err) {
             return reject(err)
