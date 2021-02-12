@@ -5,6 +5,10 @@
   "author": "think2011 <452125301.hzplay@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "flat": "^5.0.2",
     "yaml": "^1.6.0"
+  },
+  "devDependencies": {
+    "@types/flat": "^5.0.1"
   }
 }

@@ -8,6 +8,8 @@ import Utils from '../utils'
 import Config from '../Config'
 import Log from '../Log'
 
+var flatten = require('flat')
+
 interface ILng {
   localepath: string
   filepath: string
@@ -292,15 +294,22 @@ export class I18nItem {
     const writePromise = transData.map(({ filepath, keypath, text }) => {
       return new Promise((resolve, reject) => {
         const file = this.readFile(filepath, true)
+        let tmpFile = Object.assign({}, file)
+
+        // Set the data for the new/existing key
+        set(tmpFile, keypath, text)
+
+        // Flatten all the nested keys of format `{a: {b: {c: 0}}}` into `{"a.b.c": 0}`
+        tmpFile = flatten(tmpFile)
 
         //TODO: Remove the functionality of using `set` as it creates nested objects, 
         // which is cool, but not what we are looking for at the moment
-        //set(file, keypath, text) 
+        // set(file, keypath, text) 
 
         // We instead use `merge` because it create a new key without nesting the objects
-        merge(file, {[keypath]: text})
+        // merge(file, {[keypath]: text})
 
-        fs.writeFile(filepath, this.dataStringify(filepath, file), err => {
+        fs.writeFile(filepath, this.dataStringify(filepath, tmpFile), err => {
           if (err) {
             return reject(err)
           }
